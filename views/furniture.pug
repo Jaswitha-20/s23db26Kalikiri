@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - let results = [{furniture:"Sofa", Design: "modern", cost:50000, brand: "RoyalOak"}, {furniture:"Recliner", Design: "Comfy", cost:10000, brand: "Pepperfry"},{furniture:"DiningTable", Design: "Glass", cost:60000, brand: "Ikea"},]
+
+    .container-fluid 
+      .row
+        each furni, index in results
+            .col-sm-2(onclick=`buy(${index})`)
+              p Furniture: #{furni.furniture}
+              p Design: #{furni.Design}
+              p Cost: #{furni.cost}
+              p Brand: #{furni.brand}
+
+  script.
+    function buy(index) {
+      alert('You purchased item ' + (index+1));
+    }
