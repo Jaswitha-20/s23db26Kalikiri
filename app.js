@@ -65,21 +65,21 @@ module.exports = app;
 async function recreateDB() {
   // Delete everything
   await furniture.deleteMany();
-  let instance1 = new furniture({ Furniture: "Sofa", Design: 'modern', Cost: 50000, Brand: 'RoyalOak' });
+  let instance1 = new furniture({ Furniture: "Mirror", Design: 'modern', Cost: 5000, Brand: 'RoyalOak' });
   instance1.save().then(doc => {
     console.log("First object saved")
   }).catch(err => {
     console.error(err)
   });
 
-  let instance2 = new furniture({ Furniture: "Recliner", Design: 'comfy', Cost: 10000, Brand: 'Pepperfry' });
+  let instance2 = new furniture({ Furniture: "Study Table", Design: 'wood', Cost: 12000, Brand: 'fwd' });
   instance2.save().then(doc => {
     console.log("Second object saved")
   }).catch(err => {
     console.error(err)
   });
 
-  let instance3 = new furniture({ Furniture: "Dining Table", Design: 'Glass', Cost: 60000, Brand: 'Ikea' });
+  let instance3 = new furniture({ Furniture: "Office Chair", Design: 'wood', Cost: 6000, Brand: 'Ikea' });
   instance3.save().then(doc => {
     console.log("Third object saved")
   }).catch(err => {

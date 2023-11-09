@@ -2,16 +2,16 @@ extends layout
 
 block content
   h1= title
-  - let results = [{furniture:"Sofa", Design: "modern", cost:50000, brand: "RoyalOak"}, {furniture:"Recliner", Design: "Comfy", cost:10000, brand: "Pepperfry"},{furniture:"DiningTable", Design: "Glass", cost:60000, brand: "Ikea"},]
+  - let result = results 
 
     .container-fluid 
       .row
-        each furni, index in results
+        each furni, index in result
             .col-sm-2(onclick=`buy(${index})`)
-              p Furniture: #{furni.furniture}
+              p Furniture: #{furni.Furniture}
               p Design: #{furni.Design}
-              p Cost: #{furni.cost}
-              p Brand: #{furni.brand}
+              p Cost: #{furni.Cost}
+              p Brand: #{furni.Brand}
 
   script.
     function buy(index) {
