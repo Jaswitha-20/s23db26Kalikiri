@@ -1,7 +1,8 @@
 const mongoose = require("mongoose")
 const furnitureSchema = mongoose.Schema({
-costume_type: String,
-size: String,
-cost: Number
+Furniture: String,
+Design: String,
+Cost: Number,
+Brand: String
 })
-module.exports = mongoose.model("Costume",costumeSchema);
+module.exports = mongoose.model("furniture",furnitureSchema);

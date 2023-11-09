@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 require('dotenv').config();
 const connectionString =
-process.env.MONGO_CON
+  process.env.MONGO_CON
 mongoose = require('mongoose');
 mongoose.connect(connectionString);
 
@@ -15,8 +15,15 @@ var usersRouter = require('./routes/users');
 var FurnitureRouter = require('./routes/furniture');
 var BoardRouter = require('./routes/board');
 var ChooseRouter = require('./routes/choose');
-var Costume = require("./models/furniture");
+var furniture = require("./models/furniture");
+var resourceRouter = require("./routes/resource");
 
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
 
 var app = express();
 
@@ -35,14 +42,15 @@ app.use('/users', usersRouter);
 app.use('/furniture', FurnitureRouter);
 app.use('/board', BoardRouter);
 app.use('/choose', ChooseRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -54,17 +62,33 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-async function recreateDB(){
-// Delete everything
-await furniture.deleteMany();
-let instance1 = new
-furniture({costume_type:"ghost", size:'large',
-cost:15.4});
-instance1.save().then(doc=>{
-console.log("First object saved")}
-).catch(err=>{
-console.error(err)
-});
+async function recreateDB() {
+  // Delete everything
+  await furniture.deleteMany();
+  let instance1 = new furniture({ Furniture: "Sofa", Design: 'modern', Cost: 50000, Brand: 'RoyalOak' });
+  instance1.save().then(doc => {
+    console.log("First object saved")
+  }).catch(err => {
+    console.error(err)
+  });
+
+  let instance2 = new furniture({ Furniture: "Recliner", Design: 'comfy', Cost: 10000, Brand: 'Pepperfry' });
+  instance2.save().then(doc => {
+    console.log("Second object saved")
+  }).catch(err => {
+    console.error(err)
+  });
+
+  let instance3 = new furniture({ Furniture: "Dining Table", Design: 'Glass', Cost: 60000, Brand: 'Ikea' });
+  instance3.save().then(doc => {
+    console.log("Third object saved")
+  }).catch(err => {
+    console.error(err)
+  });
 }
-let reseed = true;
-if (reseed) {recreateDB();}
+let reseed1 = true;
+if (reseed1) { recreateDB(); }
+
+
+
+
