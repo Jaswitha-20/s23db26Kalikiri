@@ -62,38 +62,81 @@ exports.furniture_create_post = async function (req, res) {
     }
 };
 // for a specific Costume.
-exports.furniture_detail = async function(req, res) {
+exports.furniture_detail = async function (req, res) {
     console.log("detail" + req.params.id)
     try {
-    result = await furniture.findById( req.params.id)
-    res.send(result)
+        result = await furniture.findById(req.params.id)
+        res.send(result)
     } catch (error) {
-    res.status(500)
-    res.send(`{"error": document for id ${req.params.id} not found`);
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
     }
-    };
+};
 
-    // Handle Costume update form on PUT.
-exports.furniture_update_put = async function(req, res) {
+// Handle Costume update form on PUT.
+exports.furniture_update_put = async function (req, res) {
     console.log(`update on id ${req.params.id} with body
     ${JSON.stringify(req.body)}`)
     try {
-    let toUpdate = await furniture.findById( req.params.id)
-    // Do updates of properties
-    if(req.body.Furniture) toUpdate.Furniture = req.body.Furniture;
-    if(req.body.Design) toUpdate.Design = req.body.Design;
-    if(req.body.Cost) toUpdate.Cost = req.body.Cost;
-    if(req.body.Brand) toUpdate.Brand = req.body.Brand;
-    let result = await toUpdate.save();
-    console.log("Sucess " + result)
-    res.send(result)
+        let toUpdate = await furniture.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.Furniture) toUpdate.Furniture = req.body.Furniture;
+        if (req.body.Design) toUpdate.Design = req.body.Design;
+        if (req.body.Cost) toUpdate.Cost = req.body.Cost;
+        if (req.body.Brand) toUpdate.Brand = req.body.Brand;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
     } catch (err) {
-    res.status(500)
-    res.send(`{"error": ${err}: Update for id ${req.params.id}
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
     failed`);
     }
-    };
-    
+};
+
+exports.furniture_delete = async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await furniture.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+};
+
+
+// Handle a show one view with id specified by query
+exports.furniture_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await furniture.findById(req.query.id)
+        res.render('furnituredetail',
+            { title: 'Furniture Detail', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+
+//Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.furniture_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('furniturecreate', { title: 'Furniture Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+
 
 
 

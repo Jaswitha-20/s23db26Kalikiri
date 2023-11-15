@@ -1,0 +1,23 @@
+extends layout
+block content
+ h1= title
+
+  - let Furnitureid = toShow._id
+  - let Furniture = toShow.Furniture
+  - let Design = toShow.Design
+  - let Cost = toShow.Cost
+  - let Brand = toShow.Brand
+  div
+   div.row
+    div(class='furniture mr-3') Furniture type is:
+    div #{Furniture}
+   div.row
+    div(class='furniture mr-3') Design is:
+    div #{Design}
+   div.row
+    div(class='furniture mr-3') Cost is:
+    div #{Cost}
+   div.row
+    div(class='furniture mr-3') Brand is:
+    div #{Brand}
+

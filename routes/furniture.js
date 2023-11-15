@@ -7,3 +7,9 @@ module.exports = router;
 
 // GET request for one costume.
 router.get('/furniture/:id', furniture_controlers.furniture_detail)
+
+/* GET detail costume page */
+router.get('/detail', furniture_controlers.furniture_view_one_Page);
+
+/* GET create costume page */
+router.get('/create', furniture_controlers.furniture_create_Page);
