@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1= title
+  form(id='furnitureForm', action="/resource/furniture", method="POST")
+    div.form-group
+      label.furniture(for='Furniture') Furniture type
+      input#furniture(type='text', name='Furniture')
+    div.form-group
+      label.furniture(for='Design') Design
+      input#furniture(type='text', name='Design')
+    div.form-group
+      label.furniture(for='cost')  cost
+      input#furniture(type='number', name='Cost')
+    div.form-group
+      label.furniture(for='Brand')  Brand
+      input#furniture(type='text', name='Brand')
+    input(type="submit")
+
+  script.
+    document.forms['furnitureForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // TODO do something here to show the user that the form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)), // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed: " + error);
+      });
+    });
