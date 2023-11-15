@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1= title
+  - let Furnitureid = toShow._id
+  - let Furniture = toShow.Furniture
+  - let Design = toShow.Design
+  - let Cost = toShow.Cost
+  - let Brand = toShow.Brand
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{Furnitureid}
+
+  - let actionid = "/resource/furniture/" + Furnitureid
+  form(id='furnitureForm', action=actionid, method="PUT")
+    div.form-group
+      label.furniture(for='Furniture') Furniture type
+      input#furniture(type='text', name='Furniture', value=Furniture)
+    div.form-group
+      label.furniture(for='Design') Design
+      input#furniture(type='text', name='Design', value=Design)
+    div.form-group
+      label.furniture(for='Cost') Cost
+      input#furniture(type='number', name='Cost', value=Cost)
+    div.form-group
+      label.furniture(for='Brand') Brand
+      input#furniture(type='text', name='Brand', value=Brand)
+    input(type="submit")
+
+  script.
+    document.forms['furnitureForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      // TODO do something here to show the user that the form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)), // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed: " + error);
+      });
+    });
+
