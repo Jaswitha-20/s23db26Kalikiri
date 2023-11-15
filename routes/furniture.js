@@ -16,3 +16,6 @@ router.get('/create', furniture_controlers.furniture_create_Page);
 
 /* GET create update page */
 router.get('/update', furniture_controlers.furniture_update_Page);
+
+/* GET delete costume page */
+router.get('/delete', furniture_controlers.furniture_delete_Page);

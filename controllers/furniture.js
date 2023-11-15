@@ -125,30 +125,47 @@ exports.furniture_view_one_Page = async function (req, res) {
 //Handle building the view for creating a costume.
 // No body, no in path parameter, no query.
 // Does not need to be async
-exports.furniture_create_Page = function(req, res) {
-console.log("create view")
-try{
-res.render('furniturecreate', { title: 'Furniture Create'});
-}
-catch(err){
-res.status(500)
-res.send(`{'error': '${err}'}`);
-}
+exports.furniture_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('furniturecreate', { title: 'Furniture Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
 };
 
 // Handle building the view for updating a costume.
 // query provides the id
-exports.furniture_update_Page = async function(req, res) {
-console.log("update view for item "+req.query.id)
-try{
-let result = await furniture.findById(req.query.id)
-res.render('furnitureupdate', { title: 'Furniture Update', toShow: result });
-}
-catch(err){
-res.status(500)
-res.send(`{'error': '${err}'}`);
-}
+exports.furniture_update_Page = async function (req, res) {
+    console.log("update view for item " + req.query.id)
+    try {
+        let result = await furniture.findById(req.query.id)
+        res.render('furnitureupdate', { title: 'Furniture Update', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
 };
+
+// Handle a delete one view with id from query
+exports.furniture_delete_Page = async function (req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
+        result = await furniture.findById(req.query.id)
+        res.render('furnituredelete', {
+            title: 'Furniture Delete', toShow:
+                result
+        });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
 
 
 
