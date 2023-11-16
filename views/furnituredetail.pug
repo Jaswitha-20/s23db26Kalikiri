@@ -1,7 +1,9 @@
 extends layout
 block content
  h1= title
-
+ if (toShow == null)
+    h2 No Instances to Show.
+ else
   - let Furnitureid = toShow._id
   - let Furniture = toShow.Furniture
   - let Design = toShow.Design
