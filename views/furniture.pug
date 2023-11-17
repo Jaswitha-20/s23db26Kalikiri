@@ -7,13 +7,20 @@ block content
     .container-fluid 
       .row
         each furni, index in result
+            - let destination = `dispatch(\"/furniture/update?id=${furni._id}\")`
             .col-sm-2(onclick=`buy(${index})`)
               p Furniture: #{furni.Furniture}
               p Design: #{furni.Design}
               p Cost: #{furni.Cost}
               p Brand: #{furni.Brand}
+              button.btn( class="btn-primary ml-1", onclick= destination) Update
 
   script.
+    function dispatch(path){
+      window.location.href=path
+    }
+
     function buy(index) {
       alert('You purchased item ' + (index+1));
     }
+
