@@ -15,7 +15,15 @@ router.get('/detail', furniture_controlers.furniture_view_one_Page);
 router.get('/create', furniture_controlers.furniture_create_Page);
 
 /* GET create update page */
-router.get('/update', furniture_controlers.furniture_update_Page);
+// A little function to check if we have an authorized user and continue on or
+// redirect to login.
+const secured = (req, res, next) => {
+if (req.user){
+return next();
+}
+res.redirect("/login");
+}
+router.get('/update',secured, furniture_controlers.furniture_update_Page);
 
 /* GET delete costume page */
 router.get('/delete', furniture_controlers.furniture_delete_Page);
